@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.com.mgoficina.model.Cliente;
+import br.com.mgoficina.model.Servico;
 import br.com.mgoficina.service.IClienteService;
 
 public class ClienteServiceImpl implements IClienteService{
@@ -12,16 +13,12 @@ public class ClienteServiceImpl implements IClienteService{
 	private List<Cliente> clientes;
 	
 	
-	
 	public ClienteServiceImpl() {
 		clientes = new ArrayList<Cliente>();
 	}
 	public ClienteServiceImpl(List<Cliente> clientes) {
 		this.clientes = new ArrayList<>(clientes);
-	} 
-	
-		
-	
+	}
 	@Override
 	public Cliente create(Cliente cliente) {
 		this.clientes.add(cliente);
