@@ -8,7 +8,7 @@ import br.com.mgoficina.model.Servico;
 public interface IServicoService {
 	public Servico create(Servico servico);
 	public List<Servico> findServicosByCliente(String cpf);
-	public List<Servico> findServicoByDate(LocalDate dataInicio,LocalDate dataFim);
+	public List<Servico> findServicosByDate(LocalDate dataInicio,LocalDate dataFim);
 	//public Servico findClienteByNome(String nome);
 	public List<Servico> findAll();
 	public boolean updateServico(Servico servico);

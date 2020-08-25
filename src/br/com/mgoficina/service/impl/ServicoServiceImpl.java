@@ -8,8 +8,8 @@ import br.com.mgoficina.model.Cliente;
 import br.com.mgoficina.model.Servico;
 import br.com.mgoficina.service.IServicoService;
 
-public class ServicoServiceImpl implements IServicoService{
-	private List<Servico> servicos;
+public class ServicoServiceImpl implements IServicoService {
+	private List<Servico> servicos = new ArrayList<>();
 
 	@Override
 	public Servico create(Servico servico) {
@@ -20,34 +20,55 @@ public class ServicoServiceImpl implements IServicoService{
 	@Override
 	public List<Servico> findServicosByCliente(String cpf) {
 		List<Servico> servicosEncontrados = new ArrayList<>();
-		for(int i = 0 ; i < servicos.size();i++) {
-			if(servicos.get(i).getCpfCliente().equals(cpf))
+		for (int i = 0; i < servicos.size(); i++) {
+			if (servicos.get(i).getCpfCliente().equals(cpf))
 				servicosEncontrados.add(servicos.get(i));
 		}
 		return servicosEncontrados;
 	}
 
 	@Override
-	public List<Servico> findServicoByDate(LocalDate dataInicio, LocalDate dataFim) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Servico> findServicosByDate(LocalDate dataInicio, LocalDate dataFim) {
+		List<Servico> servicosEncontrados = new ArrayList<>();
+		for(Servico servico: servicos) {
+			if((servico.getDataInicio().isAfter(dataInicio) || 
+					servico.getDataInicio().equals(dataInicio)) && (servico.getDataFim().isBefore(dataFim)
+							|| servico.getDataFim().equals(dataFim))){
+				servicosEncontrados.add(servico);
+			}
+		}
+		return servicosEncontrados;
 	}
 
 	@Override
 	public List<Servico> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return servicos;
 	}
 
 	@Override
 	public boolean updateServico(Servico servico) {
-		// TODO Auto-generated method stub
-		return false;
+		if (this.servicos.contains(servico)) {
+
+			int indiceDoObjeto = this.servicos.indexOf(servico);
+			this.servicos.remove(servico);
+			this.servicos.add(indiceDoObjeto, servico);
+			return true;
+
+		} else {
+
+			return false;
+
+		}
 	}
 
 	@Override
 	public boolean deleteServico(Servico servico) {
-		// TODO Auto-generated method stub
+		for (Servico servicoLista : servicos) {
+			if (servicoLista.equals(servico)) {
+				servicos.remove(servicoLista);
+				return true;
+			}
+		}
 		return false;
 	}
 
